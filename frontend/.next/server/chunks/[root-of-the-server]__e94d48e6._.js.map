@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 76, "column": 0}, "map": {"version":3,"sources":["file:///Users/kalash/Desktop/React%20Projects/fyntra/frontend/auth.ts"],"sourcesContent":["import NextAuth from \"next-auth\"\nimport GitHub from \"next-auth/providers/github\"\n \nexport const { handlers, auth, signIn, signOut } = NextAuth({\n  providers: [GitHub],\n  debug: true\n})"],"names":[],"mappings":";;;;;;AAAA;AAAA;AACA;AAAA;;;AAEO,MAAM,EAAE,QAAQ,EAAE,IAAI,EAAE,MAAM,EAAE,OAAO,EAAE,GAAG,CAAA,GAAA,uJAAA,CAAA,UAAQ,AAAD,EAAE;IAC1D,WAAW;QAAC,uJAAA,CAAA,UAAM;KAAC;IACnB,OAAO;AACT","debugId":null}},
+    {"offset": {"line": 100, "column": 0}, "map": {"version":3,"sources":["file:///Users/kalash/Desktop/React%20Projects/fyntra/frontend/app/api/auth/%5B...nextauth%5D/route.ts"],"sourcesContent":["import { handlers } from \"@/auth\"\nexport const { GET, POST } = handlers"],"names":[],"mappings":";;;;AAAA;;AACO,MAAM,EAAE,GAAG,EAAE,IAAI,EAAE,GAAG,sGAAA,CAAA,WAAQ","debugId":null}}]
+}
