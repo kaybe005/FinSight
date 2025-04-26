@@ -5,8 +5,9 @@ export default function Layout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <main className="font-work-sans">
-      <Navbar />
-
+      <div className="sticky top-0 z-50 bg-white">
+        <Navbar />
+        </div>
       {children}
     </main>
   );

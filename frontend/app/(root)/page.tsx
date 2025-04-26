@@ -21,7 +21,7 @@ export default async function Home({
         <SearchForm query={query} />
       </section>
 
-      <section className="section-container">
+      <section id="features" className="section-container">
         <Features />
 
       </section>

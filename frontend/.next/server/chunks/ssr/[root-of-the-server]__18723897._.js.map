@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 39, "column": 0}, "map": {"version":3,"sources":["file:///Users/kalash/Desktop/React%20Projects/fyntra/frontend/components/SearchFormReset.tsx"],"sourcesContent":["\"use client\";\n\nimport { X } from \"lucide-react\";\nimport Link from \"next/link\";\n\nconst SearchFormReset = () => {\n    const reset = () => {\n        const form = document.querySelector('.search-form') as HTMLFormElement;\n\n        if (form) form.reset();\n    }\n  return (\n    <button type='reset' onClick={reset}>\n        <Link href=\"/\" className=\"search-btn text-white\">\n            <X className=\"size-5\" />\n        </Link>\n    </button>\n)}\n\nexport default SearchFormReset"],"names":[],"mappings":";;;;AAEA;AACA;AAHA;;;;AAKA,MAAM,kBAAkB;IACpB,MAAM,QAAQ;QACV,MAAM,OAAO,SAAS,aAAa,CAAC;QAEpC,IAAI,MAAM,KAAK,KAAK;IACxB;IACF,qBACE,8OAAC;QAAO,MAAK;QAAQ,SAAS;kBAC1B,cAAA,8OAAC,4JAAA,CAAA,UAAI;YAAC,MAAK;YAAI,WAAU;sBACrB,cAAA,8OAAC,4LAAA,CAAA,IAAC;gBAAC,WAAU;;;;;;;;;;;;;;;;AAGxB;uCAEc","debugId":null}}]
+}

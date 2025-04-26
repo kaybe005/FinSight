@@ -226,3 +226,6 @@
   padding: 10px !important;
 }
 /**new additions from here**/
+html {
+  scroll-behavior: smooth;
+}

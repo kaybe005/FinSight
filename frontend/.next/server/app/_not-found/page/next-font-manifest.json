@@ -3,13 +3,13 @@
   "app": {
     "[project]/app/_not-found/page": [
       "static/media/WorkSans_ExtraLight-s.p.4acbb5a8.ttf",
-      "static/media/WorkSans_Thin-s.p.f54ea3ce.ttf",
       "static/media/WorkSans_Black-s.p.a069085c.ttf",
+      "static/media/WorkSans_Thin-s.p.f54ea3ce.ttf",
       "static/media/WorkSans_Regular-s.p.e54e80a1.ttf",
       "static/media/WorkSans_Medium-s.p.dd265acf.ttf",
       "static/media/WorkSans_SemiBold-s.p.760b73a5.ttf",
-      "static/media/WorkSans_Bold-s.p.15452450.ttf",
-      "static/media/WorkSans_ExtraBold-s.p.27ae6f55.ttf"
+      "static/media/WorkSans_ExtraBold-s.p.27ae6f55.ttf",
+      "static/media/WorkSans_Bold-s.p.15452450.ttf"
     ]
   },
   "appUsingSizeAdjust": true,

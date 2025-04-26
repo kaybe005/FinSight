@@ -24,15 +24,22 @@ const Navbar = async () => {
         </Link>
 
         <div className="hidden md:flex items-center gap-5">
-          <NavLink href="/features">Features</NavLink>
+          <Link href="#features" scroll={true}>
+            Features
+          </Link>
           <NavLink href="/solutions">Solutions</NavLink>
         </div>
 
         <div className="flex items-center gap-5 text-black">
           {session && session?.user ? (
             <>
-              <Link href="/startup/create">
-                <span>Create</span>
+              <Link href="/stock-analyser">
+                <span>Stock Analyser</span>
+              </Link>
+              <Link href="/dashboards">
+                <span className="text-sm hover:text-blue-400 transition-colors px-2 py-1 rounded hover:bg-gray-700/50">
+                  Dashboard
+                </span>
               </Link>
               <form
                 action={async () => {

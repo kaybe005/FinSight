@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/kalash/Desktop/React%20Projects/fyntra/frontend/components/Navbar.tsx"],"sourcesContent":["// components/StockChart/Skeleton.tsx\nexport default function Skeleton() {\n  return (\n    <div className=\"animate-pulse h-[400px] w-full bg-gray-100 rounded-lg flex items-center justify-center\">\n      <div className=\"space-y-2 text-center\">\n        <div className=\"h-4 w-32 bg-gray-300 rounded mx-auto\"></div>\n        <p className=\"text-gray-400 text-sm\">Loading chart data...</p>\n      </div>\n    </div>\n  );\n}"],"names":[],"mappings":"AAAA,qCAAqC;;;;;;AACtB,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;YAAI,WAAU;;8BACb,8OAAC;oBAAI,WAAU;;;;;;8BACf,8OAAC;oBAAE,WAAU;8BAAwB;;;;;;;;;;;;;;;;;AAI7C","debugId":null}},
+    {"offset": {"line": 52, "column": 0}, "map": {"version":3,"sources":["file:///Users/kalash/Desktop/React%20Projects/fyntra/frontend/app/%28root%29/layout.tsx"],"sourcesContent":["import Navbar from \"@/components/Navbar\";\n\nexport default function Layout({\n  children,\n}: Readonly<{ children: React.ReactNode }>) {\n  return (\n    <main className=\"font-work-sans\">\n      <div className=\"sticky top-0 z-50 bg-white\">\n        <Navbar />\n        </div>\n      {children}\n    </main>\n  );\n}\n"],"names":[],"mappings":";;;;AAAA;;;AAEe,SAAS,OAAO,EAC7B,QAAQ,EACgC;IACxC,qBACE,8OAAC;QAAK,WAAU;;0BACd,8OAAC;gBAAI,WAAU;0BACb,cAAA,8OAAC,qHAAA,CAAA,UAAM;;;;;;;;;;YAER;;;;;;;AAGP","debugId":null}}]
+}
