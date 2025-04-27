@@ -1,0 +1,18 @@
+.loader {
+  width: 72px;
+  height: 72px;
+  border: 6px solid #e0e7ff; /* soft light blue */
+  border-top: 6px solid #0057ff; /* Fyntra primary blue */
+  border-radius: 50%;
+  animation: spin 0.9s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(0, 87, 255, 0.4); /* subtle blue glow */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

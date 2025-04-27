@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///Users/kalash/Desktop/fullstackprojects/fyntra/frontend/components/loader.css"],"sourcesContent":[".loader {\n  width: 72px;\n  height: 72px;\n  border: 6px solid #e0e7ff; /* soft light blue */\n  border-top: 6px solid #0057ff; /* Fyntra primary blue */\n  border-radius: 50%;\n  animation: spin 0.9s ease-in-out infinite;\n  box-shadow: 0 0 10px rgba(0, 87, 255, 0.4); /* subtle blue glow */\n}\n\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;;;AAUA","debugId":null}}]
+}

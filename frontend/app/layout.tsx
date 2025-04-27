@@ -1,66 +1,31 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+import { Work_Sans } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
+import Navbar from "@/components/Navbar";
 
-const workSans = localFont({
-  src: [
-    {
-      path: "./fonts/WorkSans-Black.ttf",
-      weight: "900",
-      style: "normal",
-    },
-    {
-      path: "./fonts/WorkSans-ExtraBold.ttf",
-      weight: "800",
-      style: "normal",
-    },
-    {
-      path: "./fonts/WorkSans-Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "./fonts/WorkSans-SemiBold.ttf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "./fonts/WorkSans-Medium.ttf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "./fonts/WorkSans-Regular.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "./fonts/WorkSans-Thin.ttf",
-      weight: "200",
-      style: "normal",
-    },
-    {
-      path: "./fonts/WorkSans-ExtraLight.ttf",
-      weight: "100",
-      style: "normal",
-    },
-  ],
+const workSans = Work_Sans({
+  subsets: ["latin"],
   variable: "--font-work-sans",
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Fyntra",
-  description: "Financial Analysis Tool",
+  description: "Smarter Investing Starts Here",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={workSans.variable}>{children}</body>
+      <body className={`${workSans.className} bg-white text-black`}>
+        <SessionProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+        </SessionProvider>
+      </body>
     </html>
   );
 }

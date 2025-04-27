@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/kalash/Desktop/fullstackprojects/fyntra/frontend/app/stock-analyser/layout.tsx"],"sourcesContent":["import Navbar from \"@/components/Navbar\";\n\nexport default function StockAnalyserLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  return (\n    <div>\n      <Navbar />\n      <main>{children}</main>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;AAAA;;;AAEe,SAAS,oBAAoB,EAC1C,QAAQ,EAGT;IACC,qBACE,8OAAC;;0BACC,8OAAC,qHAAA,CAAA,UAAM;;;;;0BACP,8OAAC;0BAAM;;;;;;;;;;;;AAGb","debugId":null}}]
+}

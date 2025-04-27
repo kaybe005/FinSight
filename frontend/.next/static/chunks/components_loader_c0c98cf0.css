@@ -1,0 +1,23 @@
+/* [project]/components/loader.css [app-client] (css) */
+.loader {
+  border: 6px solid #e0e7ff;
+  border-top-color: #0057ff;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  animation: .9s ease-in-out infinite spin;
+  box-shadow: 0 0 10px #0057ff66;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/*# sourceMappingURL=components_loader_c0c98cf0.css.map*/

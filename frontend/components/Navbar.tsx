@@ -1,87 +1,83 @@
-import Link from "next/link";
-import { auth, signIn, signOut } from "@/auth";
+"use client";
 
-const Navbar = async () => {
-  const session = await auth();
+import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
+export default function Navbar() {
+  const { data: session } = useSession();
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10); // If user scrolls more than 10px
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header
-      className="sticky top-0 z-50 shadow-md"
-      style={{ backgroundColor: "#0A2540" }}
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 ${
+        scrolled ? "bg-white/80 backdrop-blur-md shadow-md" : "bg-transparent"
+      } transition-all duration-300`}
     >
-      <nav className="max-w-7xl mx-auto px-4 py-2.5 flex justify-between items-center h-13">
+      <Link href="/" className="text-2xl font-bold">
+        Fyntra
+      </Link>
+
+      <div className="flex items-center gap-6">
         <Link
-          href="/"
-          className="flex items-center group hover:opacity-90 transition-opacity"
+          href="/solutions"
+          className={`${
+            pathname.startsWith("/solutions")
+              ? "font-bold text-primary-100"
+              : ""
+          }`}
         >
-          <span className="text-xl font-bold" style={{ color: "#00C4A3" }}>
-            Fyntra
-          </span>
-          <span
-            className="ml-1 h-2 w-2 rounded-full"
-            style={{ backgroundColor: "#0057FF" }}
-          ></span>
+          Solutions
+        </Link>
+        <Link
+          href="/dashboards"
+          className={`${
+            pathname.startsWith("/dashboards")
+              ? "font-bold text-primary-100"
+              : ""
+          }`}
+        >
+          Dashboards
+        </Link>
+        <Link
+          href="/stock-analyser"
+          className={`${
+            pathname.startsWith("/stock-analyser")
+              ? "font-bold text-primary-100"
+              : ""
+          }`}
+        >
+          Stock Analyser
         </Link>
 
-        <div className="hidden md:flex items-center gap-5">
-          <Link href="#features" scroll={true}>
-            Features
-          </Link>
-          <NavLink href="/solutions">Solutions</NavLink>
-        </div>
-
-        <div className="flex items-center gap-5 text-black">
-          {session && session?.user ? (
-            <>
-              <Link href="/stock-analyser">
-                <span>Stock Analyser</span>
-              </Link>
-              <Link href="/dashboards">
-                <span className="text-sm hover:text-blue-400 transition-colors px-2 py-1 rounded hover:bg-gray-700/50">
-                  Dashboard
-                </span>
-              </Link>
-              <form
-                action={async () => {
-                  "use server";
-
-                  await signOut({ redirectTo: "/" });
-                }}
-              >
-                <button type="submit">Logout</button>
-              </form>
-              <Link href={`/user/${session?.user?.id}`}>
-                <span>{session?.user?.name}</span>
-              </Link>
-            </>
-          ) : (
-            <form
-              action={async () => {
-                "use server";
-                await signIn("github");
-              }}
-            >
-              <button type="submit">Login</button>
-            </form>
-          )}
-        </div>
-      </nav>
-    </header>
+        {/* Auth Buttons */}
+        {!session ? (
+          <button
+            onClick={() => signIn("github")}
+            className="bg-primary-100 text-white px-4 py-2 rounded-lg hover:bg-primary-100/90 transition"
+          >
+            Sign In
+          </button>
+        ) : (
+          <button
+            onClick={() => signOut()}
+            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+          >
+            Sign Out
+          </button>
+        )}
+      </div>
+    </nav>
   );
-};
-
-const NavLink = ({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) => (
-  <Link
-    href={href}
-    className="text-sm hover:text-blue-400 transition-colors px-2 py-1 rounded hover:bg-gray-700/50"
-  >
-    {children}
-  </Link>
-);
-export default Navbar;
+}

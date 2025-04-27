@@ -1,8 +1,8 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import StockChart from "@/components/StockChart/StockChart";
+import DynamicStockChart from "@/components/DynamicStockChart";
 import axios from "axios";
-import { ChartData } from "chart.js";
 import NewsFeed from "./NewsFeed";
 
 const API_KEY = process.env.NEXT_PUBLIC_ALPHA_VANTAGE_API_KEY;
@@ -17,7 +17,7 @@ interface AlphaVantageResponse {
   Note?: string;
 }
 
-const Dashboard = () => {
+export default function Dashboard() {
   const [stockData, setStockData] = useState<ChartData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,7 +35,6 @@ const Dashboard = () => {
         `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${API_KEY}`
       );
 
-      // Handle API rate limiting
       if (response.data.Note) {
         if (retryCount < 3) {
           await new Promise((resolve) =>
@@ -46,7 +45,6 @@ const Dashboard = () => {
         throw new Error("API rate limit reached. Please try again later.");
       }
 
-      // Handle explicit API errors
       if (response.data["Error Message"]) {
         throw new Error(response.data["Error Message"]);
       }
@@ -85,9 +83,9 @@ const Dashboard = () => {
       setStockSymbol(symbol.toUpperCase());
     } catch (err) {
       const errorMessage =
-        err.response?.data?.["Error Message"] ||
-        err.response?.data?.Note ||
-        err.message;
+        (err as any).response?.data?.["Error Message"] ||
+        (err as any).response?.data?.Note ||
+        (err as any).message;
       setError(errorMessage || "Failed to fetch stock data");
       console.error("API Error:", err);
     } finally {
@@ -123,7 +121,7 @@ const Dashboard = () => {
         />
         <button
           type="submit"
-          className="bg-[#0057FF] text-white px-6 py-2 rounded-lg hover:bg-[#0040CC]transition disabled:opacity-50"
+          className="bg-[#0057FF] text-white px-6 py-2 rounded-lg hover:bg-[#0040CC] transition disabled:opacity-50"
           disabled={loading || !searchInput.trim()}
         >
           {loading ? "Searching..." : "Search"}
@@ -155,8 +153,11 @@ const Dashboard = () => {
                 Daily closing prices (USD)
               </p>
             </div>
-            <StockChart data={stockData} />
 
+            {/* Dynamic Chart here */}
+            <DynamicStockChart data={stockData} />
+
+            {/* NewsFeed */}
             <NewsFeed symbol={stockSymbol} />
           </>
         ) : (
@@ -167,6 +168,4 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}
