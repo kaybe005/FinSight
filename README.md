@@ -110,6 +110,8 @@ Project → Settings → Environment Variables
 	•	🕓 User history and portfolio tracking
 
 
+// I will be integrating LangChain later on to add AI-powered summaries.
+
  🧑 Author
 
 Kalash Bijukchhe, 19
