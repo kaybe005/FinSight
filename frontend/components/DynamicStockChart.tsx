@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { ApexOptions } from "apexcharts";
 
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -16,9 +17,9 @@ interface DynamicStockChartProps {
 }
 
 export default function DynamicStockChart({ data }: DynamicStockChartProps) {
-  const options = {
+  const options: ApexOptions = {
     chart: {
-      id: "dynamic-stock-chart",
+      id: "stock-chart",
       zoom: { enabled: true },
     },
     xaxis: {
