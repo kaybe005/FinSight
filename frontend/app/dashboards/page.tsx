@@ -4,17 +4,19 @@ import { useEffect, useState } from "react";
 import DynamicStockChart from "@/components/DynamicStockChart";
 import axios from "axios";
 import NewsFeed from "./NewsFeed";
+import ChartSkeleton from "@/components/ChartSkeleton";
 
-const API_KEY = process.env.NEXT_PUBLIC_ALPHA_VANTAGE_API_KEY;
-
-interface AlphaVantageResponse {
-  "Time Series (Daily)"?: {
-    [date: string]: {
-      "4. close": string;
-    };
-  };
-  "Error Message"?: string;
-  Note?: string;
+interface ChartData {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    borderColor: string;
+    backgroundColor: string;
+    borderWidth: number;
+    fill: boolean;
+    tension: number;
+  }[];
 }
 
 export default function Dashboard() {
@@ -24,70 +26,23 @@ export default function Dashboard() {
   const [stockSymbol, setStockSymbol] = useState("IBM");
   const [searchInput, setSearchInput] = useState("IBM");
 
-  const fetchStockData = async (symbol: string, retryCount = 0) => {
+  const fetchStockData = async (symbol: string) => {
     if (!symbol.trim()) return;
 
     setLoading(true);
     setError(null);
 
     try {
-      const response = await axios.get<AlphaVantageResponse>(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${API_KEY}`
-      );
+      const response = await axios.get(`/api/chart?symbol=${symbol}`);
 
-      if (response.data.Note) {
-        if (retryCount < 3) {
-          await new Promise((resolve) =>
-            setTimeout(resolve, 1000 * (retryCount + 1))
-          );
-          return fetchStockData(symbol, retryCount + 1);
-        }
-        throw new Error("API rate limit reached. Please try again later.");
-      }
-
-      if (response.data["Error Message"]) {
-        throw new Error(response.data["Error Message"]);
-      }
-
-      const timeSeries = response.data["Time Series (Daily)"];
-
-      if (!timeSeries) {
-        throw new Error("No time series data found in response");
-      }
-
-      const dates = Object.keys(timeSeries).slice(0, 30).reverse();
-      const prices = dates.map((date) =>
-        parseFloat(timeSeries[date]["4. close"])
-      );
-
-      if (prices.length === 0) {
-        throw new Error("No price data available");
-      }
-
-      const chartData: ChartData = {
-        labels: dates,
-        datasets: [
-          {
-            label: `${symbol.toUpperCase()} Stock Price (USD)`,
-            data: prices,
-            borderColor: "#0057FF",
-            backgroundColor: "rgba(0, 87, 255, 0.1)",
-            borderWidth: 2,
-            fill: true,
-            tension: 0.3,
-          },
-        ],
-      };
-
-      setStockData(chartData);
+      setStockData(response.data);
       setStockSymbol(symbol.toUpperCase());
     } catch (err) {
       const errorMessage =
-        (err as any).response?.data?.["Error Message"] ||
-        (err as any).response?.data?.Note ||
-        (err as any).message;
-      setError(errorMessage || "Failed to fetch stock data");
-      console.error("API Error:", err);
+        (err as any).response?.data?.error ||
+        (err as any).message ||
+        "Unknown error occurred";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -130,9 +85,7 @@ export default function Dashboard() {
 
       <div className="bg-white rounded-xl shadow-md border border-[#E6EBF2] p-4 min-h-[400px]">
         {loading ? (
-          <div className="flex items-center justify-center h-full">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-          </div>
+          <ChartSkeleton />
         ) : error ? (
           <div className="text-center py-8">
             <p className="text-red-500 font-medium mb-2">{error}</p>
@@ -154,10 +107,8 @@ export default function Dashboard() {
               </p>
             </div>
 
-            {/* Dynamic Chart here */}
             <DynamicStockChart data={stockData} />
 
-            {/* NewsFeed */}
             <NewsFeed symbol={stockSymbol} />
           </>
         ) : (

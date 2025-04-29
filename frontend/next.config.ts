@@ -1,7 +1,45 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: [
+      'cdn.cnn.com',
+      'bbc.co.uk',
+      'media.cnn.com',
+      'static01.nyt.com',
+      'i.ytimg.com',
+      'assets.bwbx.io',
+      'www.redhat.com',
+      'www.reuters.com',
+      'www.bbc.co.uk',
+      'www.cnbc.com',
+      'www.theguardian.com',
+      'www.wsj.com',
+      'www.bloomberg.com',
+      'www.forbes.com',
+      'www.nytimes.com',
+      'www.theverge.com',
+      'www.theatlantic.com',
+      'www.washingtonpost.com',
+      'www.foxbusiness.com',
+      'www.nbcnews.com',
+      'www.usatoday.com',
+      'www.abcnews.go.com',
+      'www.politico.com',
+      'www.huffpost.com',
+      'www.npr.org',
+      'www.bloombergquint.com',
+      'www.cnbc.com',
+      'www.cnn.co.uk',
+      'www.cnn.com',
+      'www.theguardian.com',
+      'www.theverge.com',
+      'www.theatlantic.com',
+      'www.washingtonpost.com',
+      'www.foxbusiness.com',
+      'i0.wp.com',
+    ],
+  },
 };
 
 export default nextConfig;

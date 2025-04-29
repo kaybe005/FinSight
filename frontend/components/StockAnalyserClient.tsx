@@ -4,25 +4,35 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import SearchForm from "@/components/SearchForm";
 import Loader from "@/components/Loader";
+import axios from "axios";
 
 export default function StockAnalyserClient() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("query") || "";
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [stockData, setStockData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async (query: string) => {
     setLoading(true);
-    setSearchQuery("");
+    setError(null);
+    setStockData(null);
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    setSearchQuery(query);
-    setLoading(false);
+    try {
+      const response = await axios.get(
+        `http://localhost:5005/api/stocks/${query}`
+      );
+      setStockData(response.data);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch stock data. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // ⏳ Auto-trigger when coming from Home page
+  //  Auto-trigger when coming from Home page
   useEffect(() => {
     if (initialQuery) {
       handleSearch(initialQuery);
@@ -42,47 +52,90 @@ export default function StockAnalyserClient() {
 
       {loading ? (
         <Loader />
-      ) : (
-        searchQuery && (
-          <section className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 px-2">
-            {[
-              {
-                title: "AI Investment Insights",
-                description:
-                  "Deep AI-generated analysis for smarter investing.",
-              },
-              {
-                title: "Earnings Highlights",
-                description:
-                  "Latest quarterly earnings breakdowns at a glance.",
-              },
-              {
-                title: "Reddit Sentiment",
-                description: "Community-driven sentiment analysis from Reddit.",
-              },
-              {
-                title: "Financial Metrics",
-                description: "Key financial ratios and performance metrics.",
-              },
-              {
-                title: "Latest News",
-                description: "Real-time financial news impacting your stocks.",
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl shadow-md hover:shadow-lg hover:shadow-primary-100/30 transition-transform duration-300 transform hover:-translate-y-2 p-6 flex flex-col justify-between"
-              >
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                    {item.title}
-                  </h2>
-                  <p className="text-gray-500 text-sm">{item.description}</p>
+      ) : error ? (
+        <p className="text-red-500">{error}</p>
+      ) : stockData ? (
+        <section className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 px-2">
+          {[
+            {
+              title: "Stock Price",
+              description: `$${stockData.current_price}`,
+            },
+            {
+              title: "P/E Ratio",
+              description: stockData.financial_metrics.peRatio
+                ? `${stockData.financial_metrics?.peRatio.toFixed(2)}`
+                : "N/A",
+            },
+            {
+              title: "EPS",
+              description: stockData.financial_metrics?.eps
+                ? `$${stockData.financial_metrics.eps.toFixed(2)}`
+                : "N/A",
+            },
+            {
+              title: "Return on Equity",
+              description: stockData.financial_metrics?.roe
+                ? `${stockData.financial_metrics?.roe.toFixed(2)}%`
+                : "N/A",
+            },
+            {
+              title: "Profit Margin",
+              description: stockData.financial_metrics?.profitMargin
+                ? `${stockData.financial_metrics?.profitMargin.toFixed(2)}%`
+                : "N/A",
+            },
+            {
+              title: "Symbol",
+              description: `${stockData.symbol}`,
+            },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl border border-gray-200 shadow-md hover:shadow-2xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 p-6 flex flex-col justify-between hover:border-primary-100/50"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-gradient-to-r from-[#00C4A3] to-[#0057FF] rounded-full p-2">
+                  <svg
+                    className="w-5 h-5 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8c-1.657 0-3 1.343-3 3 0 2.667 3 5 3 5s3-2.333 3-5c0-1.657-1.343-3-3-3z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 2a10 10 0 00-7.746 16.32L4 22l3.68-0.254A10 10 0 1012 2z"
+                    />
+                  </svg>
                 </div>
+                <h2 className="text-xl font-semibold text-gray-700">
+                  {item.title}
+                </h2>
               </div>
-            ))}
-          </section>
-        )
+
+              <p className="text-3xl font-extrabold bg-gradient-to-r from-[#00C4A3] to-[#0057FF] bg-clip-text text-transparent">
+                {item.description}
+              </p>
+              {stockData?.timestamp && (
+                <p className="text-xs text-gray-400 mt-2">
+                  Last updated:{" "}
+                  {new Date(stockData.timestamp * 1000).toLocaleString()}
+                </p>
+              )}
+            </div>
+          ))}
+        </section>
+      ) : (
+        <p className="text-gray-400">Start by searching for a stock symbol.</p>
       )}
     </main>
   );

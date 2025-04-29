@@ -144,6 +144,8 @@ function StockAnalyserClient() {
     const searchParams = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSearchParams"])();
     const initialQuery = searchParams.get("query") || "";
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [stockData, setStockData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const handleSearch = async (query)=>{
         setLoading(true);
@@ -152,7 +154,7 @@ function StockAnalyserClient() {
         setSearchQuery(query);
         setLoading(false);
     };
-    // ⏳ Auto-trigger when coming from Home page
+    //  Auto-trigger when coming from Home page
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (initialQuery) {
             handleSearch(initialQuery);
@@ -169,7 +171,7 @@ function StockAnalyserClient() {
                 children: "Stock Analyser"
             }, void 0, false, {
                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                lineNumber: 35,
+                lineNumber: 38,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -178,40 +180,47 @@ function StockAnalyserClient() {
                     onSearch: handleSearch
                 }, void 0, false, {
                     fileName: "[project]/components/StockAnalyserClient.tsx",
-                    lineNumber: 40,
+                    lineNumber: 43,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                lineNumber: 39,
+                lineNumber: 42,
                 columnNumber: 7
             }, this),
             loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$Loader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                lineNumber: 44,
+                lineNumber: 47,
                 columnNumber: 9
-            }, this) : searchQuery && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+            }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-red-500",
+                children: error
+            }, void 0, false, {
+                fileName: "[project]/components/StockAnalyserClient.tsx",
+                lineNumber: 49,
+                columnNumber: 9
+            }, this) : stockData ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                 className: "w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 px-2",
                 children: [
                     {
-                        title: "AI Investment Insights",
-                        description: "Deep AI-generated analysis for smarter investing."
+                        title: "Stock Price",
+                        description: `$${stockData.price}`
                     },
                     {
-                        title: "Earnings Highlights",
-                        description: "Latest quarterly earnings breakdowns at a glance."
+                        title: "Market Cap",
+                        description: `$${stockData.marketCap}`
                     },
                     {
-                        title: "Reddit Sentiment",
-                        description: "Community-driven sentiment analysis from Reddit."
+                        title: "P/E Ratio",
+                        description: `${stockData.peRatio}`
                     },
                     {
-                        title: "Financial Metrics",
-                        description: "Key financial ratios and performance metrics."
+                        title: "Dividend Yield",
+                        description: `${stockData.dividendYield}%`
                     },
                     {
-                        title: "Latest News",
-                        description: "Real-time financial news impacting your stocks."
+                        title: "Symbol",
+                        description: `${stockData.symbol}`
                     }
                 ].map((item, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "bg-white rounded-2xl shadow-md hover:shadow-lg hover:shadow-primary-100/30 transition-transform duration-300 transform hover:-translate-y-2 p-6 flex flex-col justify-between",
@@ -222,37 +231,44 @@ function StockAnalyserClient() {
                                     children: item.title
                                 }, void 0, false, {
                                     fileName: "[project]/components/StockAnalyserClient.tsx",
-                                    lineNumber: 77,
-                                    columnNumber: 19
+                                    lineNumber: 79,
+                                    columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "text-gray-500 text-sm",
                                     children: item.description
                                 }, void 0, false, {
                                     fileName: "[project]/components/StockAnalyserClient.tsx",
-                                    lineNumber: 80,
-                                    columnNumber: 19
+                                    lineNumber: 82,
+                                    columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/StockAnalyserClient.tsx",
-                            lineNumber: 76,
-                            columnNumber: 17
+                            lineNumber: 78,
+                            columnNumber: 15
                         }, this)
                     }, index, false, {
                         fileName: "[project]/components/StockAnalyserClient.tsx",
-                        lineNumber: 72,
-                        columnNumber: 15
+                        lineNumber: 74,
+                        columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                lineNumber: 47,
-                columnNumber: 11
+                lineNumber: 51,
+                columnNumber: 9
+            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-gray-400",
+                children: "Start by searching for a stock symbol."
+            }, void 0, false, {
+                fileName: "[project]/components/StockAnalyserClient.tsx",
+                lineNumber: 88,
+                columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/StockAnalyserClient.tsx",
-        lineNumber: 34,
+        lineNumber: 37,
         columnNumber: 5
     }, this);
 }
