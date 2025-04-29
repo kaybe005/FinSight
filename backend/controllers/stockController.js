@@ -59,7 +59,7 @@ const getChartData = async (req, res) => {
         res.json(data);
     } catch (err) {
         console.error('Chart API Error:', err.message);
-        res.status(500).json({ error: 'Failed to fetch chart data' });
+        res.status(500).json({ error: err.message });
     }
 };
 
