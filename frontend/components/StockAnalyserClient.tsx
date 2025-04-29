@@ -33,12 +33,10 @@ export default function StockAnalyserClient() {
     }
   };
 
-  //  Auto-trigger when coming from Home page
   useEffect(() => {
     if (initialQuery) {
       handleSearch(initialQuery);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialQuery]);
 
   return (
