@@ -8,13 +8,16 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5005;
 
-app.use(express.json());
+const allowedOrigins = ['https://fyntra.vercel.app'];
+
 
 app.use(cors(
-    {origin: 'https://fyntra.vercel.app',
-    credentials: true
+    {origin: 'allowedOrigins',
+        credentials: true
     }
 ));
+
+app.use(express.json());
 
 app.use('/api', stockRoutes);
 
