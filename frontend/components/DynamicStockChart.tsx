@@ -27,9 +27,10 @@ export default function DynamicStockChart({ data }: DynamicStockChartProps) {
     },
     stroke: {
       curve: "smooth",
+      width: 2,
     },
     colors: ["#0057FF"],
-  };
+  } as const;
 
   const series = [
     {
