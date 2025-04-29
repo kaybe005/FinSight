@@ -9,7 +9,13 @@ const app = express();
 const PORT = process.env.PORT || 5005;
 
 app.use(express.json());
-app.use(cors());
+
+app.use(cors(
+    {origin: 'https://fyntra.vercel.app',
+    credentials: true
+    }
+));
+
 app.use('/api', stockRoutes);
 
 app.listen(PORT, () => {
