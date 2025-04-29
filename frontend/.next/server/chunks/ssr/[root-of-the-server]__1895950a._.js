@@ -257,7 +257,7 @@ function StockAnalyserClient() {
         setError(null);
         setStockData(null);
         try {
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(`http://localhost:5005/api/stocks/${query}`);
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(`https://fyntra-backend.onrender.com/api/stock/${query}`);
             setStockData(response.data);
         } catch (err) {
             console.error(err);
@@ -266,12 +266,10 @@ function StockAnalyserClient() {
             setLoading(false);
         }
     };
-    //  Auto-trigger when coming from Home page
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (initialQuery) {
             handleSearch(initialQuery);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         initialQuery
     ]);
@@ -283,7 +281,7 @@ function StockAnalyserClient() {
                 children: "Stock Analyser"
             }, void 0, false, {
                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                lineNumber: 46,
+                lineNumber: 44,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -292,24 +290,24 @@ function StockAnalyserClient() {
                     onSearch: handleSearch
                 }, void 0, false, {
                     fileName: "[project]/components/StockAnalyserClient.tsx",
-                    lineNumber: 51,
+                    lineNumber: 49,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                lineNumber: 50,
+                lineNumber: 48,
                 columnNumber: 7
             }, this),
             loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$Loader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                lineNumber: 55,
+                lineNumber: 53,
                 columnNumber: 9
             }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 className: "text-red-500",
                 children: error
             }, void 0, false, {
                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                lineNumber: 57,
+                lineNumber: 55,
                 columnNumber: 9
             }, this) : stockData ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                 className: "w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 px-2",
@@ -360,7 +358,7 @@ function StockAnalyserClient() {
                                                     d: "M12 8c-1.657 0-3 1.343-3 3 0 2.667 3 5 3 5s3-2.333 3-5c0-1.657-1.343-3-3-3z"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/StockAnalyserClient.tsx",
-                                                    lineNumber: 107,
+                                                    lineNumber: 105,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -370,18 +368,18 @@ function StockAnalyserClient() {
                                                     d: "M12 2a10 10 0 00-7.746 16.32L4 22l3.68-0.254A10 10 0 1012 2z"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/StockAnalyserClient.tsx",
-                                                    lineNumber: 113,
+                                                    lineNumber: 111,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/StockAnalyserClient.tsx",
-                                            lineNumber: 100,
+                                            lineNumber: 98,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/StockAnalyserClient.tsx",
-                                        lineNumber: 99,
+                                        lineNumber: 97,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -389,13 +387,13 @@ function StockAnalyserClient() {
                                         children: item.title
                                     }, void 0, false, {
                                         fileName: "[project]/components/StockAnalyserClient.tsx",
-                                        lineNumber: 121,
+                                        lineNumber: 119,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                                lineNumber: 98,
+                                lineNumber: 96,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -403,7 +401,7 @@ function StockAnalyserClient() {
                                 children: item.description
                             }, void 0, false, {
                                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                                lineNumber: 126,
+                                lineNumber: 124,
                                 columnNumber: 15
                             }, this),
                             stockData?.timestamp && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -415,31 +413,31 @@ function StockAnalyserClient() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                                lineNumber: 130,
+                                lineNumber: 128,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, index, true, {
                         fileName: "[project]/components/StockAnalyserClient.tsx",
-                        lineNumber: 94,
+                        lineNumber: 92,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                lineNumber: 59,
+                lineNumber: 57,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 className: "text-gray-400",
                 children: "Start by searching for a stock symbol."
             }, void 0, false, {
                 fileName: "[project]/components/StockAnalyserClient.tsx",
-                lineNumber: 139,
+                lineNumber: 137,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/StockAnalyserClient.tsx",
-        lineNumber: 45,
+        lineNumber: 43,
         columnNumber: 5
     }, this);
 }

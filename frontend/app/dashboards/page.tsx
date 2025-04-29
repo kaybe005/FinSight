@@ -62,7 +62,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="bg-[#F9FAFB] px-4 py-8 max-w-6xl mx-auto">
+    <div className="pt-20 bg-[#F9FAFB] px-4 py-8 max-w-6xl mx-auto pt-[90px]">
       <h2 className="text-3xl font-bold mb-6 text-[#0A2540]">
         📊 Stock Dashboard
       </h2>

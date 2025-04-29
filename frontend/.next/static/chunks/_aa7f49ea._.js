@@ -93,7 +93,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const NEWS_API_KEY = ("TURBOPACK compile-time value", "0a31aeb1bd5a40c4af637615f14b5a6d");
+const MARKET_AUX_API_KEY = ("TURBOPACK compile-time value", "aXCv2erSNkjsYjmizyayRsyTG29yOVfgMtjrVBOz");
 const NewsSkeleton = ()=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "animate-pulse bg-white shadow-sm rounded-xl overflow-hidden border border-gray-100",
@@ -162,8 +162,16 @@ const NewsFeed = ({ symbol })=>{
                     setLoading(true);
                     setError(null);
                     try {
-                        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`https://newsapi.org/v2/everything?q=${symbol}&sortBy=publishedAt&pageSize=6&language=en&apiKey=${NEWS_API_KEY}`);
-                        setArticles(response.data.articles);
+                        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`https://api.marketaux.com/v1/news/all`, {
+                            params: {
+                                api_token: MARKET_AUX_API_KEY,
+                                symbols: symbol,
+                                filter_entities: true,
+                                language: "en",
+                                limit: 6
+                            }
+                        });
+                        setArticles(response.data.data);
                     } catch (err) {
                         setError("Failed to fetch news articles.");
                         console.error(err);
@@ -186,7 +194,7 @@ const NewsFeed = ({ symbol })=>{
                     children: "📰 Market News"
                 }, void 0, false, {
                     fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                    lineNumber: 59,
+                    lineNumber: 70,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -195,18 +203,18 @@ const NewsFeed = ({ symbol })=>{
                         ...Array(6)
                     ].map((_, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NewsSkeleton, {}, idx, false, {
                             fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                            lineNumber: 64,
+                            lineNumber: 75,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                    lineNumber: 62,
+                    lineNumber: 73,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/dashboards/NewsFeed.tsx",
-            lineNumber: 58,
+            lineNumber: 69,
             columnNumber: 7
         }, this);
     }
@@ -216,7 +224,7 @@ const NewsFeed = ({ symbol })=>{
             children: error
         }, void 0, false, {
             fileName: "[project]/app/dashboards/NewsFeed.tsx",
-            lineNumber: 72,
+            lineNumber: 83,
             columnNumber: 12
         }, this);
     }
@@ -231,7 +239,7 @@ const NewsFeed = ({ symbol })=>{
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                lineNumber: 77,
+                lineNumber: 88,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -243,7 +251,7 @@ const NewsFeed = ({ symbol })=>{
                         className: "bg-white shadow-sm rounded-xl overflow-hidden hover:shadow-md transition border border-gray-100",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                src: article.urlToImage || "/fallback-image.jpg",
+                                src: article.image_url || "/fallback-image.jpg",
                                 alt: "News Thumbnail",
                                 width: 400,
                                 height: 250,
@@ -251,7 +259,7 @@ const NewsFeed = ({ symbol })=>{
                                 unoptimized: true
                             }, void 0, false, {
                                 fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                                lineNumber: 89,
+                                lineNumber: 100,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -262,7 +270,7 @@ const NewsFeed = ({ symbol })=>{
                                         children: article.title
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                                        lineNumber: 99,
+                                        lineNumber: 110,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -270,43 +278,43 @@ const NewsFeed = ({ symbol })=>{
                                         children: article.description
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                                        lineNumber: 102,
+                                        lineNumber: 113,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         className: "text-xs text-gray-400",
                                         children: [
-                                            article.source.name,
+                                            article.source?.domain,
                                             " ·",
                                             " ",
-                                            new Date(article.publishedAt).toLocaleDateString()
+                                            new Date(article.published_at).toLocaleDateString()
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                                        lineNumber: 105,
+                                        lineNumber: 116,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                                lineNumber: 98,
+                                lineNumber: 109,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, idx, true, {
                         fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                        lineNumber: 82,
+                        lineNumber: 93,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                lineNumber: 80,
+                lineNumber: 91,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/dashboards/NewsFeed.tsx",
-        lineNumber: 76,
+        lineNumber: 87,
         columnNumber: 5
     }, this);
 };
@@ -396,7 +404,7 @@ function Dashboard() {
         setLoading(true);
         setError(null);
         try {
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`/api/chart?symbol=${symbol}`);
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`https://fyntra-backend.onrender.com/api/chart?symbol=${symbol}`);
             setStockData(response.data);
             setStockSymbol(symbol.toUpperCase());
         } catch (err) {
@@ -418,14 +426,14 @@ function Dashboard() {
         }
     }["Dashboard.useEffect"], []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "bg-[#F9FAFB] px-4 py-8 max-w-6xl mx-auto",
+        className: "pt-20 bg-[#F9FAFB] px-4 py-8 max-w-6xl mx-auto pt-[90px]",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                 className: "text-3xl font-bold mb-6 text-[#0A2540]",
                 children: "📊 Stock Dashboard"
             }, void 0, false, {
                 fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 64,
+                lineNumber: 66,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -441,7 +449,7 @@ function Dashboard() {
                         disabled: loading
                     }, void 0, false, {
                         fileName: "[project]/app/dashboards/page.tsx",
-                        lineNumber: 69,
+                        lineNumber: 71,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -451,20 +459,20 @@ function Dashboard() {
                         children: loading ? "Searching..." : "Search"
                     }, void 0, false, {
                         fileName: "[project]/app/dashboards/page.tsx",
-                        lineNumber: 77,
+                        lineNumber: 79,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 68,
+                lineNumber: 70,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "bg-white rounded-xl shadow-md border border-[#E6EBF2] p-4 min-h-[400px]",
                 children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ChartSkeleton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/app/dashboards/page.tsx",
-                    lineNumber: 88,
+                    lineNumber: 90,
                     columnNumber: 11
                 }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "text-center py-8",
@@ -474,7 +482,7 @@ function Dashboard() {
                             children: error
                         }, void 0, false, {
                             fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 91,
+                            lineNumber: 93,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -483,13 +491,13 @@ function Dashboard() {
                             children: "Retry"
                         }, void 0, false, {
                             fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 92,
+                            lineNumber: 94,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/dashboards/page.tsx",
-                    lineNumber: 90,
+                    lineNumber: 92,
                     columnNumber: 11
                 }, this) : stockData ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                     children: [
@@ -504,7 +512,7 @@ function Dashboard() {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/dashboards/page.tsx",
-                                    lineNumber: 102,
+                                    lineNumber: 104,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -512,27 +520,27 @@ function Dashboard() {
                                     children: "Daily closing prices (USD)"
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboards/page.tsx",
-                                    lineNumber: 105,
+                                    lineNumber: 107,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 101,
+                            lineNumber: 103,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DynamicStockChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             data: stockData
                         }, void 0, false, {
                             fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 110,
+                            lineNumber: 112,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$dashboards$2f$NewsFeed$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             symbol: stockSymbol
                         }, void 0, false, {
                             fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 112,
+                            lineNumber: 114,
                             columnNumber: 13
                         }, this)
                     ]
@@ -541,18 +549,18 @@ function Dashboard() {
                     children: "No data to display"
                 }, void 0, false, {
                     fileName: "[project]/app/dashboards/page.tsx",
-                    lineNumber: 115,
+                    lineNumber: 117,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 86,
+                lineNumber: 88,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/dashboards/page.tsx",
-        lineNumber: 63,
+        lineNumber: 65,
         columnNumber: 5
     }, this);
 }
