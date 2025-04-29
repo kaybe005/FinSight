@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
-const NEWS_API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY;
+const MARKET_AUX_API_KEY = process.env.NEXT_PUBLIC_MARKETAUX_API_KEY;
 
 interface Article {
   title: string;
   description: string;
   url: string;
-  urlToImage?: string;
-  source: { name: string };
-  publishedAt: string;
+  image_url?: string;
+  source?: { domain: string };
+  published_at: string;
 }
 
 const NewsSkeleton = () => {
@@ -28,6 +28,7 @@ const NewsSkeleton = () => {
     </div>
   );
 };
+
 const NewsFeed = ({ symbol }: { symbol: string }) => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,21 +38,21 @@ const NewsFeed = ({ symbol }: { symbol: string }) => {
     const fetchNews = async () => {
       setLoading(true);
       setError(null);
-
       try {
         const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines`,
+          `https://api.marketaux.com/v1/news/all`,
           {
             params: {
-              q: symbol,
-              category: "business",
+              api_token: MARKET_AUX_API_KEY,
+              symbols: symbol,
+              filter_entities: true,
               language: "en",
-              pageSize: 6,
-              apiKey: NEWS_API_KEY,
+              limit: 6,
             },
           }
         );
-        setArticles(response.data.articles || []);
+
+        setArticles(response.data.data);
       } catch (err) {
         setError("Failed to fetch news articles.");
         console.error(err);
@@ -97,7 +98,7 @@ const NewsFeed = ({ symbol }: { symbol: string }) => {
             className="bg-white shadow-sm rounded-xl overflow-hidden hover:shadow-md transition border border-gray-100"
           >
             <Image
-              src={article.urlToImage || "/fallback-image.jpg"}
+              src={article.image_url || "/fallback-image.jpg"}
               alt="News Thumbnail"
               width={400}
               height={250}
@@ -113,8 +114,8 @@ const NewsFeed = ({ symbol }: { symbol: string }) => {
                 {article.description}
               </p>
               <span className="text-xs text-gray-400">
-                {article.source.name} ·{" "}
-                {new Date(article.publishedAt).toLocaleDateString()}
+                {article.source?.domain} ·{" "}
+                {new Date(article.published_at).toLocaleDateString()}
               </span>
             </div>
           </a>
