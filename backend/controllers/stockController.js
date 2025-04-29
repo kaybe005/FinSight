@@ -36,8 +36,8 @@ const getStockInfo = async (req, res) => {
 };
 
 const getChartData = async (req, res) => {
-    const { symbol } = req.params; 
-    const apiKey = process.env.FINNHUB_API_KEY;
+    const { symbol } = req.query; 
+    const apiKey = process.env.TWEL;
     const now = Math.floor(Date.now() / 1000);
     const oneMonthAgo = now - 30 * 24 * 60 * 60;
 
