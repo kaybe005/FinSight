@@ -57,12 +57,12 @@ function DynamicStockChart({ data }) {
             height: 350
         }, void 0, false, {
             fileName: "[project]/components/DynamicStockChart.tsx",
-            lineNumber: 44,
+            lineNumber: 43,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/DynamicStockChart.tsx",
-        lineNumber: 43,
+        lineNumber: 42,
         columnNumber: 5
     }, this);
 }

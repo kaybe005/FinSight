@@ -5,7 +5,6 @@ import { ApexOptions } from "apexcharts";
 
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-// 🚀 Define our own simple typing
 interface DynamicStockChartProps {
   data: {
     labels: string[];
@@ -30,7 +29,7 @@ export default function DynamicStockChart({ data }: DynamicStockChartProps) {
       width: 2,
     },
     colors: ["#0057FF"],
-  } as const;
+  };
 
   const series = [
     {
