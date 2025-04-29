@@ -34,7 +34,7 @@ export default function Dashboard() {
 
     try {
       const response = await axios.get(
-        `https://fyntra-backend.onrender.com/api/chart?symbol=${symbol}`
+        `https://fyntra-backend.onrender.com/api/chart/${symbol}`
       );
 
       setStockData(response.data);

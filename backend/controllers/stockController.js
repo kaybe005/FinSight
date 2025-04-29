@@ -2,9 +2,8 @@ import { getStockData, getFinancialMetrics, getStockNews } from '../services/fin
 import { getAccessToken, getRedditPosts } from '../services/redditService.js';
 import axios from 'axios';
 
-
 const getStockInfo = async (req, res) => {
-    const { symbol } = req.params;
+    const { symbol } = req.params; 
     const apiKey = process.env.FINNHUB_API_KEY;
 
     try {
@@ -37,7 +36,7 @@ const getStockInfo = async (req, res) => {
 };
 
 const getChartData = async (req, res) => {
-    const { symbol } = req.params;
+    const { symbol } = req.params; 
     const apiKey = process.env.FINNHUB_API_KEY;
     const now = Math.floor(Date.now() / 1000);
     const oneMonthAgo = now - 30 * 24 * 60 * 60;
@@ -63,6 +62,5 @@ const getChartData = async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch chart data' });
     }
 };
-
 
 export { getStockInfo, getChartData };
