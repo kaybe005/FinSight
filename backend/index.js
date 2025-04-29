@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5005;
 
 app.use(cors(
     {origin: 'https://fyntra.vercel.app',
+        methods: ['GET', 'POST',],
         credentials: true
     }
 ));
