@@ -10,7 +10,8 @@ export default function StockAnalyserClient() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("query") || "";
 
-  const [stockData, setStockData] = useState<any>(null);
+  const [stockData, setStockData] = useState<Record<string, any> | null>(null);
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 

@@ -26,7 +26,7 @@ export default function DynamicStockChart({ data }: DynamicStockChartProps) {
       categories: data.labels || [],
     },
     stroke: {
-      curve: "smooth",
+      curve: "smooth" as const,
       width: 2,
     },
     colors: ["#0057FF"],

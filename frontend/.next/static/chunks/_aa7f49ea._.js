@@ -26,7 +26,7 @@ _c = ApexChart;
 function DynamicStockChart({ data }) {
     const options = {
         chart: {
-            id: "dynamic-stock-chart",
+            id: "stock-chart",
             zoom: {
                 enabled: true
             }
@@ -35,7 +35,8 @@ function DynamicStockChart({ data }) {
             categories: data.labels || []
         },
         stroke: {
-            curve: "smooth"
+            curve: "smooth",
+            width: 2
         },
         colors: [
             "#0057FF"
@@ -56,12 +57,12 @@ function DynamicStockChart({ data }) {
             height: 350
         }, void 0, false, {
             fileName: "[project]/components/DynamicStockChart.tsx",
-            lineNumber: 42,
+            lineNumber: 44,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/DynamicStockChart.tsx",
-        lineNumber: 41,
+        lineNumber: 43,
         columnNumber: 5
     }, this);
 }
