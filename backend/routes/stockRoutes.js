@@ -3,7 +3,7 @@ import { getStockInfo, getChartData } from '../controllers/stockController.js';
 
 const router = express.Router();
 
-router.get('/stocks/:symbol', getStockInfo);
+router.get('/stock/:symbol', getStockInfo);
 
 router.get('/chart', getChartData);
 

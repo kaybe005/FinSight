@@ -37,11 +37,21 @@ const NewsFeed = ({ symbol }: { symbol: string }) => {
     const fetchNews = async () => {
       setLoading(true);
       setError(null);
+
       try {
         const response = await axios.get(
-          `https://newsapi.org/v2/everything?q=${symbol}&sortBy=publishedAt&pageSize=6&language=en&apiKey=${NEWS_API_KEY}`
+          `https://newsapi.org/v2/top-headlines`,
+          {
+            params: {
+              q: symbol,
+              category: "business",
+              language: "en",
+              pageSize: 6,
+              apiKey: NEWS_API_KEY,
+            },
+          }
         );
-        setArticles(response.data.articles);
+        setArticles(response.data.articles || []);
       } catch (err) {
         setError("Failed to fetch news articles.");
         console.error(err);
