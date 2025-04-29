@@ -37,30 +37,49 @@ const getStockInfo = async (req, res) => {
 
 const getChartData = async (req, res) => {
     const { symbol } = req.query; 
-    const apiKey = process.env.TWEL;
-    const now = Math.floor(Date.now() / 1000);
-    const oneMonthAgo = now - 30 * 24 * 60 * 60;
+    const apiKey = process.env.TWELVE_DATA_API_KEY;
+
+    if (!symbol) {
+        return res.status(400).json({ error: 'Symbol is required' });
+    }
 
     try {
-        const { data } = await axios.get('https://finnhub.io/api/v1/stock/candle', {
+        const { data } = await axios.get('https://api.twelvedata.com/time_series', {
             params: {
                 symbol,
-                resolution: 'D',
-                from: oneMonthAgo,
-                to: now,
-                token: apiKey,
+                interval: '1day',
+                outputsize: 30,
+                apikey: apiKey,
             },
         });
 
-        if (data.s !== 'ok') {
-            return res.status(404).json({ error: 'Chart data not found' });
+        if (data.status === "error") {
+            console.error("TwelveData Error:", data.message);
+            return res.status(404).json({ error: data.message || "Chart data not found" });
         }
 
-        res.json(data);
-    } catch (err) {
-        console.error('Chart API Error:', err.message);
-        res.status(500).json({ error: err.message });
+        const labels = data.values.map(entry => entry.datetime).reverse();
+        const closePrices = data.values.map(entry => parseFloat(entry.close)).reverse();
+
+        const chartData = {
+            labels,
+            datasets: [
+                {
+                    label: `${symbol.toUpperCase()} Stock Price (USD)`,
+                    data: closePrices,
+                    borderColor: "#0057FF",
+                    backgroundColor: "rgba(0, 87, 255, 0.1)",
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3,
+                },
+            ],
+        };
+
+        res.json(chartData);
+    } catch (error) {
+        console.error('Chart API Error:', error.message);
+        res.status(500).json({ error: 'Failed to fetch chart data' });
     }
 };
-
 export { getStockInfo, getChartData };
