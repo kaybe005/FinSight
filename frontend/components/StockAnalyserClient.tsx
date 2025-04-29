@@ -22,7 +22,7 @@ export default function StockAnalyserClient() {
 
     try {
       const response = await axios.get(
-        `http://localhost:5005/api/stocks/${query}`
+        `https://fyntra-backend.onrender.com/api/stock/${query}`
       );
       setStockData(response.data);
     } catch (err) {

@@ -33,7 +33,9 @@ export default function Dashboard() {
     setError(null);
 
     try {
-      const response = await axios.get(`/api/chart?symbol=${symbol}`);
+      const response = await axios.get(
+        `https://fyntra-backend.onrender.com/api/chart?symbol=${symbol}`
+      );
 
       setStockData(response.data);
       setStockSymbol(symbol.toUpperCase());
