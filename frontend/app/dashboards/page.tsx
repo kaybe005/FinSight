@@ -40,11 +40,14 @@ export default function Dashboard() {
       setStockData(response.data);
       setStockSymbol(symbol.toUpperCase());
     } catch (err) {
-      const errorMessage =
-        (err as any).response?.data?.error ||
-        (err as any).message ||
-        "Unknown error occurred";
-      setError(errorMessage);
+      const rawError = (err as any).response?.data?.error || "";
+      let errorMessage = "Something went wrong. Please try again.";
+
+      if (rawError.includes("symbol") || rawError.includes("figi")) {
+        errorMessage =
+          "Invalid stock symbol. Please enter a valid ticker (e.g., AAPL, TSLA).";
+        setError(errorMessage);
+      }
     } finally {
       setLoading(false);
     }
