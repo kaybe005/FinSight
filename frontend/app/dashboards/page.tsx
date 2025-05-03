@@ -25,6 +25,9 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const [stockSymbol, setStockSymbol] = useState("IBM");
   const [searchInput, setSearchInput] = useState("IBM");
+  const [aiSummary, setAiSummary] = useState<string | null>(null);
+  const [aiLoading, setAiLoading] = useState<boolean>(false);
+  const [headlines, setHeadlines] = useState<string[]>([]);
 
   const fetchStockData = async (symbol: string) => {
     if (!symbol.trim()) return;
@@ -39,7 +42,13 @@ export default function Dashboard() {
 
       setStockData(response.data);
       setStockSymbol(symbol.toUpperCase());
+
+      const newsText =
+        headlines.length > 0 ? headlines.join("\n") : "No recent news found.";
+
+      fetchAISummary(symbol, newsText, "P/E: 28, EPS: 4.2, ROE: 30%");
     } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const rawError = (err as any).response?.data?.error || "";
       let errorMessage = "Something went wrong. Please try again.";
 
@@ -50,6 +59,31 @@ export default function Dashboard() {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchAISummary = async (
+    symbol: string,
+    news: string,
+    ratios: string
+  ) => {
+    setAiLoading(true);
+    try {
+      const response = await axios.post(
+        "https://fyntra-backend.onrender.com/api/ai/summary",
+        {
+          ticker: symbol,
+          news,
+          ratios,
+        }
+      );
+
+      setAiSummary(response.data.summary);
+    } catch (error) {
+      console.error("Error fetching AI summary:", error);
+      setAiSummary("Unable to generate AI summary.");
+    } finally {
+      setAiLoading(false);
     }
   };
 
@@ -65,7 +99,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="pt-20 bg-[#F9FAFB] px-4 py-8 max-w-6xl mx-auto pt-[90px]">
+    <div className="pt-20 bg-[#F9FAFB] px-4 py-8 max-w-6xl mx-auto">
       <h2 className="text-3xl font-bold mb-6 text-[#0A2540]">
         📊 Stock Dashboard
       </h2>
@@ -114,7 +148,7 @@ export default function Dashboard() {
 
             <DynamicStockChart data={stockData} />
 
-            <NewsFeed symbol={stockSymbol} />
+            <NewsFeed symbol={stockSymbol} onHeadlinesUpdate={setHeadlines} />
           </>
         ) : (
           <div className="flex items-center justify-center h-full text-gray-500">
@@ -122,6 +156,19 @@ export default function Dashboard() {
           </div>
         )}
       </div>
+
+      {aiLoading ? (
+        <div className="mt-4 text-sm text-gray-500">
+          Generating AI insight...
+        </div>
+      ) : aiSummary ? (
+        <div className="mt-6 bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm">
+          <h4 className="text-lg font-semibold text-[#0A2540] mb-2">
+            🧠 AI Investment Summary
+          </h4>
+          <p className="text-gray-700 whitespace-pre-wrap">{aiSummary}</p>
+        </div>
+      ) : null}
     </div>
   );
 }

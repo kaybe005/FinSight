@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import stockRoutes from './routes/stockRoutes.js';
 import cors from 'cors';
+import aiRoutes from './routes/aiRoutes.js';
 
 dotenv.config();
 
@@ -17,6 +18,8 @@ app.use(cors({
 }));
 
 app.use('/api', stockRoutes);
+
+app.use('/api', aiRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

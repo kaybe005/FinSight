@@ -29,7 +29,12 @@ const NewsSkeleton = () => {
   );
 };
 
-const NewsFeed = ({ symbol }: { symbol: string }) => {
+interface NewsFeedProps {
+  symbol: string;
+  onHeadlinesUpdate: (headlines: string[]) => void;
+}
+
+const NewsFeed: React.FC<NewsFeedProps> = ({ symbol, onHeadlinesUpdate }) => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -53,6 +58,11 @@ const NewsFeed = ({ symbol }: { symbol: string }) => {
         );
 
         setArticles(response.data.data);
+        const topHeadlines = response.data.data
+          .slice(0, 3)
+          .map((article: Article) => article.title);
+
+        onHeadlinesUpdate(topHeadlines);
       } catch (err) {
         setError("Failed to fetch news articles.");
         console.error(err);

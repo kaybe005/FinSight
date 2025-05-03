@@ -243,7 +243,7 @@ const NewsSkeleton = ()=>{
         columnNumber: 5
     }, this);
 };
-const NewsFeed = ({ symbol })=>{
+const NewsFeed = ({ symbol, onHeadlinesUpdate })=>{
     const [articles, setArticles] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -262,6 +262,8 @@ const NewsFeed = ({ symbol })=>{
                     }
                 });
                 setArticles(response.data.data);
+                const topHeadlines = response.data.data.slice(0, 3).map((article)=>article.title);
+                onHeadlinesUpdate(topHeadlines);
             } catch (err) {
                 setError("Failed to fetch news articles.");
                 console.error(err);
@@ -282,7 +284,7 @@ const NewsFeed = ({ symbol })=>{
                     children: "📰 Market News"
                 }, void 0, false, {
                     fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                    lineNumber: 70,
+                    lineNumber: 80,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -291,18 +293,18 @@ const NewsFeed = ({ symbol })=>{
                         ...Array(6)
                     ].map((_, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(NewsSkeleton, {}, idx, false, {
                             fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                            lineNumber: 75,
+                            lineNumber: 85,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                    lineNumber: 73,
+                    lineNumber: 83,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/dashboards/NewsFeed.tsx",
-            lineNumber: 69,
+            lineNumber: 79,
             columnNumber: 7
         }, this);
     }
@@ -312,7 +314,7 @@ const NewsFeed = ({ symbol })=>{
             children: error
         }, void 0, false, {
             fileName: "[project]/app/dashboards/NewsFeed.tsx",
-            lineNumber: 83,
+            lineNumber: 93,
             columnNumber: 12
         }, this);
     }
@@ -327,7 +329,7 @@ const NewsFeed = ({ symbol })=>{
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                lineNumber: 88,
+                lineNumber: 98,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -347,7 +349,7 @@ const NewsFeed = ({ symbol })=>{
                                 unoptimized: true
                             }, void 0, false, {
                                 fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                                lineNumber: 100,
+                                lineNumber: 110,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -358,7 +360,7 @@ const NewsFeed = ({ symbol })=>{
                                         children: article.title
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                                        lineNumber: 110,
+                                        lineNumber: 120,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -366,7 +368,7 @@ const NewsFeed = ({ symbol })=>{
                                         children: article.description
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                                        lineNumber: 113,
+                                        lineNumber: 123,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -379,30 +381,30 @@ const NewsFeed = ({ symbol })=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                                        lineNumber: 116,
+                                        lineNumber: 126,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                                lineNumber: 109,
+                                lineNumber: 119,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, idx, true, {
                         fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                        lineNumber: 93,
+                        lineNumber: 103,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/app/dashboards/NewsFeed.tsx",
-                lineNumber: 91,
+                lineNumber: 101,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/dashboards/NewsFeed.tsx",
-        lineNumber: 87,
+        lineNumber: 97,
         columnNumber: 5
     }, this);
 };
@@ -471,6 +473,9 @@ function Dashboard() {
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [stockSymbol, setStockSymbol] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("IBM");
     const [searchInput, setSearchInput] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("IBM");
+    const [aiSummary, setAiSummary] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [aiLoading, setAiLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [headlines, setHeadlines] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const fetchStockData = async (symbol)=>{
         if (!symbol.trim()) return;
         setLoading(true);
@@ -479,11 +484,34 @@ function Dashboard() {
             const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(`https://fyntra-backend.onrender.com/api/chart?symbol=${symbol}`);
             setStockData(response.data);
             setStockSymbol(symbol.toUpperCase());
+            const newsText = headlines.length > 0 ? headlines.join("\n") : "No recent news found.";
+            fetchAISummary(symbol, newsText, "P/E: 28, EPS: 4.2, ROE: 30%");
         } catch (err) {
-            const errorMessage = err.response?.data?.error || err.message || "Unknown error occurred";
-            setError(errorMessage);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const rawError = err.response?.data?.error || "";
+            let errorMessage = "Something went wrong. Please try again.";
+            if (rawError.includes("symbol") || rawError.includes("figi")) {
+                errorMessage = "Invalid stock symbol. Please enter a valid ticker (e.g., AAPL, TSLA).";
+                setError(errorMessage);
+            }
         } finally{
             setLoading(false);
+        }
+    };
+    const fetchAISummary = async (symbol, news, ratios)=>{
+        setAiLoading(true);
+        try {
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post("https://fyntra-backend.onrender.com/api/ai/summary", {
+                ticker: symbol,
+                news,
+                ratios
+            });
+            setAiSummary(response.data.summary);
+        } catch (error) {
+            console.error("Error fetching AI summary:", error);
+            setAiSummary("Unable to generate AI summary.");
+        } finally{
+            setAiLoading(false);
         }
     };
     const handleSearch = (e)=>{
@@ -496,14 +524,14 @@ function Dashboard() {
         fetchStockData(stockSymbol);
     }, []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "pt-20 bg-[#F9FAFB] px-4 py-8 max-w-6xl mx-auto pt-[90px]",
+        className: "pt-20 bg-[#F9FAFB] px-4 py-8 max-w-6xl mx-auto",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                 className: "text-3xl font-bold mb-6 text-[#0A2540]",
                 children: "📊 Stock Dashboard"
             }, void 0, false, {
                 fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 66,
+                lineNumber: 103,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -519,7 +547,7 @@ function Dashboard() {
                         disabled: loading
                     }, void 0, false, {
                         fileName: "[project]/app/dashboards/page.tsx",
-                        lineNumber: 71,
+                        lineNumber: 108,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -529,20 +557,20 @@ function Dashboard() {
                         children: loading ? "Searching..." : "Search"
                     }, void 0, false, {
                         fileName: "[project]/app/dashboards/page.tsx",
-                        lineNumber: 79,
+                        lineNumber: 116,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 70,
+                lineNumber: 107,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "bg-white rounded-xl shadow-md border border-[#E6EBF2] p-4 min-h-[400px]",
                 children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ChartSkeleton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/app/dashboards/page.tsx",
-                    lineNumber: 90,
+                    lineNumber: 127,
                     columnNumber: 11
                 }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "text-center py-8",
@@ -552,7 +580,7 @@ function Dashboard() {
                             children: error
                         }, void 0, false, {
                             fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 93,
+                            lineNumber: 130,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -561,13 +589,13 @@ function Dashboard() {
                             children: "Retry"
                         }, void 0, false, {
                             fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 94,
+                            lineNumber: 131,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/dashboards/page.tsx",
-                    lineNumber: 92,
+                    lineNumber: 129,
                     columnNumber: 11
                 }, this) : stockData ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                     children: [
@@ -582,7 +610,7 @@ function Dashboard() {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/dashboards/page.tsx",
-                                    lineNumber: 104,
+                                    lineNumber: 141,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -590,27 +618,28 @@ function Dashboard() {
                                     children: "Daily closing prices (USD)"
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboards/page.tsx",
-                                    lineNumber: 107,
+                                    lineNumber: 144,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 103,
+                            lineNumber: 140,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DynamicStockChart$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                             data: stockData
                         }, void 0, false, {
                             fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 112,
+                            lineNumber: 149,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$dashboards$2f$NewsFeed$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                            symbol: stockSymbol
+                            symbol: stockSymbol,
+                            onHeadlinesUpdate: setHeadlines
                         }, void 0, false, {
                             fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 114,
+                            lineNumber: 151,
                             columnNumber: 13
                         }, this)
                     ]
@@ -619,18 +648,50 @@ function Dashboard() {
                     children: "No data to display"
                 }, void 0, false, {
                     fileName: "[project]/app/dashboards/page.tsx",
-                    lineNumber: 117,
+                    lineNumber: 154,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 88,
+                lineNumber: 125,
                 columnNumber: 7
-            }, this)
+            }, this),
+            aiLoading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mt-4 text-sm text-gray-500",
+                children: "Generating AI insight..."
+            }, void 0, false, {
+                fileName: "[project]/app/dashboards/page.tsx",
+                lineNumber: 161,
+                columnNumber: 9
+            }, this) : aiSummary ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mt-6 bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                        className: "text-lg font-semibold text-[#0A2540] mb-2",
+                        children: "🧠 AI Investment Summary"
+                    }, void 0, false, {
+                        fileName: "[project]/app/dashboards/page.tsx",
+                        lineNumber: 166,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-gray-700 whitespace-pre-wrap",
+                        children: aiSummary
+                    }, void 0, false, {
+                        fileName: "[project]/app/dashboards/page.tsx",
+                        lineNumber: 169,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/dashboards/page.tsx",
+                lineNumber: 165,
+                columnNumber: 9
+            }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/app/dashboards/page.tsx",
-        lineNumber: 65,
+        lineNumber: 102,
         columnNumber: 5
     }, this);
 }
