@@ -32,7 +32,7 @@ export const getAISummary = async (req, res) => {
 
         const result = await chain.call({ ticker, news, ratios });
         console.log("Generated summary:", result);
-        res.status(200).json({ summary: result?.text ?? "No summary generated." });
+        res.status(200).json({ summary: result?.text.replace(/^Here.*summary:\n*/i, "").trim()});
     } catch (error) {
         console.error("Error generating summary:", error);
         res.status(500).json({ error: error.message });

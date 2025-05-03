@@ -446,7 +446,7 @@ function ChartSkeleton() {
     }, this);
 }
 }}),
-"[project]/app/dashboards/page.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
+"[project]/app/dashboards/DashboardClient.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
 var { g: global, __dirname } = __turbopack_context__;
@@ -460,7 +460,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DynamicStockCh
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$dashboards$2f$NewsFeed$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/dashboards/NewsFeed.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ChartSkeleton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ChartSkeleton.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/react.js [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -476,6 +478,19 @@ function Dashboard() {
     const [aiSummary, setAiSummary] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [aiLoading, setAiLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [headlines, setHeadlines] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [watchlist, setWatchlist] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const { data: session } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSession"])();
+    const userId = session?.user?.id;
+    const removeFromWatchlist = (symbol)=>{
+        setWatchlist((prev)=>prev.filter((item)=>item !== symbol));
+    };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (userId) {
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(`https://fyntra-backend.onrender.com/api/watchlist/${userId}`).then((res)=>setWatchlist(res.data.symbols || [])).catch((err)=>console.error("Failed to fetch watchlist:", err));
+        }
+    }, [
+        userId
+    ]);
     const fetchRatios = async (symbol)=>{
         const apiKey = ("TURBOPACK compile-time value", "AP6oSMBM6SeY3x9YxgELz2a3p8MZFvta");
         const url = `https://financialmodelingprep.com/api/v3/key-metrics-ttm/${symbol}?apikey=${apiKey}`;
@@ -545,8 +560,8 @@ function Dashboard() {
                 className: "text-3xl font-bold mb-6 text-[#0A2540]",
                 children: "📊 Stock Dashboard"
             }, void 0, false, {
-                fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 126,
+                fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                lineNumber: 141,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -561,8 +576,8 @@ function Dashboard() {
                         className: "px-4 py-2 border border-[#E6EBF2] bg-white text-[#0A2540] rounded-lg shadow-sm flex-1 max-w-md focus:outline-none focus:ring-2 focus:ring-[#0057FF]",
                         disabled: loading
                     }, void 0, false, {
-                        fileName: "[project]/app/dashboards/page.tsx",
-                        lineNumber: 131,
+                        fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                        lineNumber: 146,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -571,21 +586,106 @@ function Dashboard() {
                         disabled: loading || !searchInput.trim(),
                         children: loading ? "Searching..." : "Search"
                     }, void 0, false, {
-                        fileName: "[project]/app/dashboards/page.tsx",
-                        lineNumber: 139,
+                        fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                        lineNumber: 154,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
-                fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 130,
+                fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                lineNumber: 145,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mb-8",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                        className: "text-xl font-semibold text-[#0A2540] mb-2",
+                        children: "⭐ Watchlist"
+                    }, void 0, false, {
+                        fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                        lineNumber: 164,
+                        columnNumber: 9
+                    }, this),
+                    watchlist.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-gray-500 text-sm",
+                        children: "No stocks in your watchlist."
+                    }, void 0, false, {
+                        fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                        lineNumber: 168,
+                        columnNumber: 11
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex flex-wrap gap-2",
+                        children: watchlist.map((symbol)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-2 bg-[#F5F7FA] border border-[#E6EBF2] rounded-lg px-3 py-1",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>fetchStockData(symbol),
+                                        className: "text-sm text-[#0057FF] font-medium hover:underline",
+                                        children: symbol
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                                        lineNumber: 176,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>removeFromWatchlist(symbol),
+                                        className: "text-xs text-red-500 hover:text-red-700",
+                                        title: "Remove",
+                                        children: "✕"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                                        lineNumber: 182,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, symbol, true, {
+                                fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                                lineNumber: 172,
+                                columnNumber: 15
+                            }, this))
+                    }, void 0, false, {
+                        fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                        lineNumber: 170,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                lineNumber: 163,
+                columnNumber: 7
+            }, this),
+            watchlist.map((symbol)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "mb-4",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                            className: "text-lg font-semibold text-[#0A2540]",
+                            children: symbol
+                        }, void 0, false, {
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 197,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>fetchStockData(symbol),
+                            className: "text-sm text-[#0057FF] hover:underline",
+                            children: "View Details"
+                        }, void 0, false, {
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 198,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, symbol, true, {
+                    fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                    lineNumber: 196,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "bg-white rounded-xl shadow-md border border-[#E6EBF2] p-4 min-h-[400px]",
                 children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ChartSkeleton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                    fileName: "[project]/app/dashboards/page.tsx",
-                    lineNumber: 150,
+                    fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                    lineNumber: 208,
                     columnNumber: 11
                 }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "text-center py-8",
@@ -594,8 +694,8 @@ function Dashboard() {
                             className: "text-red-500 font-medium mb-2",
                             children: error
                         }, void 0, false, {
-                            fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 153,
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 211,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -603,14 +703,14 @@ function Dashboard() {
                             className: "text-blue-600 hover:underline",
                             children: "Retry"
                         }, void 0, false, {
-                            fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 154,
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 212,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
-                    fileName: "[project]/app/dashboards/page.tsx",
-                    lineNumber: 152,
+                    fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                    lineNumber: 210,
                     columnNumber: 11
                 }, this) : stockData ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                     children: [
@@ -624,59 +724,75 @@ function Dashboard() {
                                         " - Last 30 Days"
                                     ]
                                 }, void 0, true, {
-                                    fileName: "[project]/app/dashboards/page.tsx",
-                                    lineNumber: 164,
+                                    fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                                    lineNumber: 222,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "text-[#6B7C93] text-sm",
                                     children: "Daily closing prices (USD)"
                                 }, void 0, false, {
-                                    fileName: "[project]/app/dashboards/page.tsx",
-                                    lineNumber: 167,
+                                    fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                                    lineNumber: 225,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
-                            fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 163,
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 221,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DynamicStockChart$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                             data: stockData
                         }, void 0, false, {
-                            fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 172,
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 230,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$dashboards$2f$NewsFeed$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                             symbol: stockSymbol,
                             onHeadlinesUpdate: setHeadlines
                         }, void 0, false, {
-                            fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 174,
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 232,
                             columnNumber: 13
+                        }, this),
+                        stockSymbol && !watchlist.includes(stockSymbol) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>setWatchlist((prev)=>[
+                                        ...prev,
+                                        stockSymbol
+                                    ]),
+                            className: "mt-4 px-4 py-2 bg-[#00C4A3] text-white rounded-lg text-sm hover:bg-[#00A78A] transition",
+                            children: [
+                                "➕ Add ",
+                                stockSymbol,
+                                " to Watchlist"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 235,
+                            columnNumber: 15
                         }, this)
                     ]
                 }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex items-center justify-center h-full text-gray-500",
                     children: "No data to display"
                 }, void 0, false, {
-                    fileName: "[project]/app/dashboards/page.tsx",
-                    lineNumber: 177,
+                    fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                    lineNumber: 244,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
-                fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 148,
+                fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                lineNumber: 206,
                 columnNumber: 7
             }, this),
             aiLoading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "mt-12 text-sm text-gray-500 text-center",
                 children: "Generating AI insight..."
             }, void 0, false, {
-                fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 184,
+                fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                lineNumber: 251,
                 columnNumber: 9
             }, this) : aiSummary ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "mt-12 bg-white shadow-sm rounded-xl border border-[#E6EBF2] overflow-hidden",
@@ -687,41 +803,41 @@ function Dashboard() {
                             className: "text-2xl font-semibold text-[#0A2540] mb-3",
                             children: "🧠 AI Investment Summary"
                         }, void 0, false, {
-                            fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 190,
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 257,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "text-[#333] leading-relaxed whitespace-pre-wrap text-sm md:text-base",
                             children: aiSummary
                         }, void 0, false, {
-                            fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 193,
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 260,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "mt-4 text-xs text-gray-400 italic text-right",
                             children: "Generated using latest news & ratios"
                         }, void 0, false, {
-                            fileName: "[project]/app/dashboards/page.tsx",
-                            lineNumber: 196,
+                            fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                            lineNumber: 263,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
-                    fileName: "[project]/app/dashboards/page.tsx",
-                    lineNumber: 189,
+                    fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                    lineNumber: 256,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
-                fileName: "[project]/app/dashboards/page.tsx",
-                lineNumber: 188,
+                fileName: "[project]/app/dashboards/DashboardClient.tsx",
+                lineNumber: 255,
                 columnNumber: 9
             }, this) : null
         ]
     }, void 0, true, {
-        fileName: "[project]/app/dashboards/page.tsx",
-        lineNumber: 125,
+        fileName: "[project]/app/dashboards/DashboardClient.tsx",
+        lineNumber: 140,
         columnNumber: 5
     }, this);
 }
@@ -729,4 +845,4 @@ function Dashboard() {
 
 };
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__f44f44c4._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__918d057a._.js.map

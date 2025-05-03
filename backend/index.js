@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import stockRoutes from './routes/stockRoutes.js';
 import cors from 'cors';
 import aiRoutes from './routes/aiRoutes.js';
+import watchlistRoutes from './routes/watchlistRoutes.js';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -20,6 +22,17 @@ app.use(cors({
 app.use('/api', stockRoutes);
 
 app.use('/api', aiRoutes);
+
+app.use('/api/watchlist', watchlistRoutes);
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log("MongoDB connected");
+}).catch((err) => {
+  console.error("MongoDB connection error:", err);
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
