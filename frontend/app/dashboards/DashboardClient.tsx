@@ -23,7 +23,7 @@ interface ChartData {
 
 export default function Dashboard() {
   const { data: session } = useSession();
-  const userId = session?.user?.email;
+  const userEmail = session?.user?.email;
 
   const [stockData, setStockData] = useState<ChartData | null>(null);
   const [stockSymbol, setStockSymbol] = useState("IBM");
@@ -36,20 +36,20 @@ export default function Dashboard() {
   const [watchlist, setWatchlist] = useState<string[]>([]);
 
   useEffect(() => {
-    if (userId) {
+    if (userEmail) {
       axios
-        .get(`https://fyntra-backend.onrender.com/api/watchlist/${userId}`)
+        .get(`https://fyntra-backend.onrender.com/api/watchlist/${userEmail}`)
         .then((res) => setWatchlist(res.data.symbols || []))
         .catch((err) => console.error(" Failed to fetch watchlist:", err));
     }
-  }, [userId]);
+  }, [userEmail]);
 
   const addToWatchlist = async (symbol: string) => {
     try {
       await axios.post(
         "https://fyntra-backend.onrender.com/api/watchlist/add",
         {
-          userEmail: userId,
+          userEmail,
           symbol,
         }
       );
@@ -64,7 +64,7 @@ export default function Dashboard() {
       await axios.post(
         "https://fyntra-backend.onrender.com/api/watchlist/remove",
         {
-          userEmail: userId,
+          userEmail,
           symbol,
         }
       );
