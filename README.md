@@ -1,128 +1,149 @@
-# 🧠 Fyntra — Smart Financial Analysis Tool
+# 📊 Fyntra – AI-Powered Stock Insight Dashboard
 
-Fyntra is a smart, full-stack FinTech web application that delivers real-time stock insights. Users can search tickers to access live charts, latest financial news, and GitHub-authenticated access — all in one sleek dashboard. Built with performance and design in mind.
-
----
-
-## 🚀 Live Demo
-
-👉 [https://fyntra.vercel.app](https://fyntra.vercel.app)
+Fyntra is a full-stack FinTech web app that empowers users to analyze stocks using real-time financial data, AI-generated investment summaries, and a personalized watchlist. Built with Next.js, Node.js, MongoDB, and Groq, it combines advanced tech with sleek design for retail investors and enthusiasts.
 
 ---
 
+## 🚀 Features
 
-## ✨ Features
+### ✅ Core Functionality
 
-- 📈 Real-time stock price charts (via Twelve Data API)
-- 📰 Summarized financial news from News API
-- 🔐 GitHub OAuth login with NextAuth.js
-- ⚡ Fast and responsive UI with TailwindCSS & Framer Motion
-- 💡 Sparkline charts and skeleton loaders for great UX
+- **Stock Search**: Enter a stock symbol (e.g., AAPL, TSLA) to view historical price charts.
+- **AI Investment Summary**: Generates Groq-powered insights from key ratios and recent financial news.
+- **Watchlist Management**:
+  - Add/remove stocks from your personal watchlist (stored in MongoDB)
+  - Watchlist persists across sessions with GitHub OAuth
+- **News Feed**: Fetches real-time stock-related headlines.
+- **Financial Metrics**: Pulls data like P/E ratio, EPS, and ROE from FMP API.
 
 ---
 
-## 🧑‍💻 Tech Stack
+## 🧰 Tech Stack
 
-### Frontend:
-- **Next.js** (App Router)
+### 🖥️ Frontend
+
+- **Next.js 14**
+- **TypeScript**
 - **Tailwind CSS**
-- **ApexCharts / Chart.js**
-- **Framer Motion**
-- **NextAuth.js** for authentication
+- **Chart.js** via `react-chartjs-2`
 
-### Backend:
-- **Node.js** + **Express.js**
-- **Twelve Data API**
-- **News API**
+### ⚙️ Backend
+
+- **Node.js** + **Express**
+- **MongoDB Atlas** with **Mongoose**
+- **OpenAI GPT-4** (AI Summary)
+- **FMP (Financial Modeling Prep)** API
+- **News API** (Marketaux or similar)
+
+### 🔐 Authentication
+
+- **NextAuth.js** with **GitHub OAuth**
+- Session-based user identification (via email) used for storing watchlists
 
 ---
 
-## 📂 Project Structure
-FYNTRA/
-├── backend/
-│   ├── index.js
-│   ├── routes/
-│   └── controllers/
-├── frontend/
-│   ├── app/
-│   ├── components/
-│   ├── pages/
-│   └── public/
-├── .env.local
-├── .gitignore
-└── README.md
+## 📸 Screenshots
+
+| Dashboard View                               | Watchlist                                    | AI Summary                             |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------- |
+| ![Dashboard](./public/screens/dashboard.png) | ![Watchlist](./public/screens/watchlist.png) | ![AI](./public/screens/ai-summary.png) |
+
 ---
 
 ## 🛠️ Installation & Setup
 
-### 1. Clone the repository
+### 1. Clone the Repo
 
-git clone https://github.com/kaybe005/Fyntra.git
-cd Fyntra
+```bash
+git clone https://github.com/kaybe005/fyntra.git
+cd fyntra
+```
 
-### 2. Backend Setup
+### 2. Setup Frontend
+
+```bash
+cd frontend
+npm install
+
+Create .env.local in /frontend:
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=yourSecret
+NEXT_PUBLIC_FMP_API_KEY=your_fmp_key
+GITHUB_CLIENT_ID=your_github_id
+GITHUB_CLIENT_SECRET=your_github_secret
+```
+
+### 3. Setup Backend
+
+```bash
+cd ../backend
+npm install
+
+Create .env in /backend:
+PORT=5005
+MONGO_URI=your_mongo_uri
+OPENAI_API_KEY=your_openai_key
+```
+
+### 4. Run Locally
+
+```bash
+Start backend:
 cd backend
-npm install
+npm run dev
+```
+
+```bash
+Start frontend:
+cd frontend
 npm run dev
 
+Frontend on: http://localhost:3000
+Backend on: http://localhost:5005
+```
 
+---
 
-3. Frontend Setup
-cd ../frontend
-npm install
+## 🧪Features in Progress/ Ideas
 
+- **Reddit sentiment integration using Pushshift or Reddit API**
+- **Twitter/X sentiment analysis**
+- **Stock watchlist price alerts**
+- **Portfolio performance tracking**
+- **AI-based risk scoring**
 
-Create a .env.local file in frontend/ with:
+---
 
-NEXT_PUBLIC_TWELVE_DATA_API_KEY=your_twelve_data_key
-NEXTAUTH_URL=https://fyntra.vercel.app
-NEXTAUTH_SECRET=your_generated_secret
-GITHUB_ID=your_github_oauth_id
-GITHUB_SECRET=your_github_oauth_secret
+## 💻 Project Structure
 
-Run the frontend:
-npm run dev
+```perl
+fyntra/
+│
+├── frontend/            → Next.js app
+│   ├── pages/
+│   ├── components/
+│   ├── app/
+│   └── .env.local       → Frontend API keys
+│
+├── backend/             → Node + Express API
+│   ├── routes/
+│   ├── controllers/
+│   ├── models/
+│   └── .env             → MongoDB, OpenAI keys
+│
+└── README.md
+```
 
+## 👤 Author
 
+**Kalash Bijukchhe**  
+💼 Aspiring Full-Stack FinTech Engineer  
+📍 Based in Sydney | 🇳🇵 Nepali International Student  
+📫 [LinkedIn](https://linkedin.com/in/kayb05) | [GitHub](https://github.com/kaybe005)
 
-🌐 Deployment
+## 🧠 Credits
 
-This app is deployed on Vercel. To deploy:
-	1.	Push frontend to GitHub.
-	2.	Connect the repo to Vercel.
-	3.	Add all environment variables under:
-Project → Settings → Environment Variables
-	4.	Trigger a build.
-
-
-
-
- 📈 Roadmap / To-Do
-	•	✅ Build & deploy frontend + backend
-	•	✅ GitHub OAuth authentication
-	•	✅ Live stock chart integration
-	•	✅ Financial news feed with loaders
-	•	🕓 Add MongoDB for storing user searches
-	•	🕓 Integrate Reddit API for sentiment
-	•	🕓 Add AI-powered summaries (LangChain + OpenAI)
-	•	🕓 Add earnings reports + financial ratios
-	•	🕓 Store embeddings using Pinecone or Weaviate
-	•	🕓 User history and portfolio tracking
-
-
-// I will be integrating LangChain later on to add AI-powered summaries.
-
- 🧑 Author
-
-Kalash Bijukchhe, 19
-Nepali 🇳🇵 student & full-stack developer in Sydney 🇦🇺
-Loves tech, stocks, and building real-world apps.
-
-⭐️ Show Your Support
-
-If you liked the project:
-	•	🌟 Star this repo
-	•	🍴 Fork and play with it
-	•	🧵 Share feedback or feature ideas
-
-
+- **Financial Modeling Prep – for ratios**
+- **Groq investment insights**
+- **Marketaux – real-time headlines**
+- **ApexCharts – for price visualizations**
