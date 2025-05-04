@@ -90,6 +90,11 @@ const { handlers, auth, signIn, signOut } = (0, __TURBOPACK__imported__module__$
     providers: [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$auth$2f$core$2f$providers$2f$github$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"]
     ],
+    callbacks: {
+        async session ({ session, token }) {
+            return session;
+        }
+    },
     debug: true
 });
 }}),

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const watchlistSchema = new mongoose.Schema({
-    userId: { type: String, required: true, unique: true },
-    symbols: { type: [String], default: [] },
+    userEmail: { type: String, required: true },
+    symbols: [String],
 });
 
 const Watchlist = mongoose.model('Watchlist', watchlistSchema);

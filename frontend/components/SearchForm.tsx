@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface SearchFormProps {
-  onSearch?: (query: string) => void; // Optional: If provided, do local search
+  onSearch?: (query: string) => void; 
 }
 
 export default function SearchForm({ onSearch }: SearchFormProps) {
@@ -18,10 +18,9 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
     const searchQuery = query.trim().toUpperCase();
 
     if (onSearch) {
-      // If onSearch prop is given → Local search
       onSearch(searchQuery);
     } else {
-      // Otherwise → Redirect to /stock-analyser
+     
       router.push(`/stock-analyser?query=${searchQuery}`);
     }
 

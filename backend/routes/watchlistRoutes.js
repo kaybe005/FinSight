@@ -3,7 +3,7 @@ import { getWatchlist, addToWatchlist, removeFromWatchlist } from "../controller
 
 const router = express.Router();
 
-router.get("/:userId", getWatchlist);
+router.get("/:userEmail", getWatchlist);
 router.post("/add", addToWatchlist);
 router.post("/remove", removeFromWatchlist);
 

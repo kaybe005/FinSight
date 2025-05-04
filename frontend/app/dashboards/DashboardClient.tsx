@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DynamicStockChart from "@/components/DynamicStockChart";
+import { useSession } from "next-auth/react";
 import axios from "axios";
+
+import DynamicStockChart from "@/components/DynamicStockChart";
 import NewsFeed from "./NewsFeed";
 import ChartSkeleton from "@/components/ChartSkeleton";
-import { useSession } from "next-auth/react";
 
 interface ChartData {
   labels: string[];
@@ -21,29 +22,57 @@ interface ChartData {
 }
 
 export default function Dashboard() {
+  const { data: session } = useSession();
+  const userId = session?.user?.email;
+
   const [stockData, setStockData] = useState<ChartData | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [stockSymbol, setStockSymbol] = useState("IBM");
   const [searchInput, setSearchInput] = useState("IBM");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [aiSummary, setAiSummary] = useState<string | null>(null);
-  const [aiLoading, setAiLoading] = useState<boolean>(false);
+  const [aiLoading, setAiLoading] = useState(false);
   const [headlines, setHeadlines] = useState<string[]>([]);
   const [watchlist, setWatchlist] = useState<string[]>([]);
-  const { data: session } = useSession();
-  const userId = session?.user?.id;
-  const removeFromWatchlist = (symbol: string) => {
-    setWatchlist((prev) => prev.filter((item) => item !== symbol));
-  };
 
   useEffect(() => {
     if (userId) {
       axios
         .get(`https://fyntra-backend.onrender.com/api/watchlist/${userId}`)
         .then((res) => setWatchlist(res.data.symbols || []))
-        .catch((err) => console.error("Failed to fetch watchlist:", err));
+        .catch((err) => console.error(" Failed to fetch watchlist:", err));
     }
   }, [userId]);
+
+  const addToWatchlist = async (symbol: string) => {
+    try {
+      await axios.post(
+        "https://fyntra-backend.onrender.com/api/watchlist/add",
+        {
+          userEmail: userId,
+          symbol,
+        }
+      );
+      setWatchlist((prev) => [...prev, symbol]);
+    } catch (error) {
+      console.error(" Failed to add to watchlist:", error);
+    }
+  };
+
+  const removeFromWatchlist = async (symbol: string) => {
+    try {
+      await axios.post(
+        "https://fyntra-backend.onrender.com/api/watchlist/remove",
+        {
+          userEmail: userId,
+          symbol,
+        }
+      );
+      setWatchlist((prev) => prev.filter((item) => item !== symbol));
+    } catch (error) {
+      console.error("Failed to remove from watchlist:", error);
+    }
+  };
 
   const fetchRatios = async (symbol: string): Promise<string> => {
     const apiKey = process.env.NEXT_PUBLIC_FMP_API_KEY;
@@ -52,11 +81,11 @@ export default function Dashboard() {
     try {
       const response = await fetch(url);
       const data = await response.json();
-
-      if (!data || data.length === 0) return "No ratio data available.";
+      if (!Array.isArray(data) || data.length === 0 || !data[0]) {
+        return "No ratio data available.";
+      }
 
       const { peRatioTTM, epsTTM, roeTTM } = data[0];
-
       return `P/E: ${peRatioTTM?.toFixed(2)}, EPS: ${epsTTM?.toFixed(
         2
       )}, ROE: ${roeTTM?.toFixed(2)}%`;
@@ -76,25 +105,20 @@ export default function Dashboard() {
       const response = await axios.get(
         `https://fyntra-backend.onrender.com/api/chart?symbol=${symbol}`
       );
-
       setStockData(response.data);
       setStockSymbol(symbol.toUpperCase());
 
       const newsText =
         headlines.length > 0 ? headlines.join("\n") : "No recent news found.";
-
       const ratiosText = await fetchRatios(symbol);
       fetchAISummary(symbol, newsText, ratiosText);
     } catch (err) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const rawError = (err as any).response?.data?.error || "";
-      let errorMessage = "Something went wrong. Please try again.";
-
-      if (rawError.includes("symbol") || rawError.includes("figi")) {
-        errorMessage =
-          "Invalid stock symbol. Please enter a valid ticker (e.g., AAPL, TSLA).";
-        setError(errorMessage);
-      }
+      setError(
+        rawError.includes("symbol")
+          ? "Invalid stock symbol. Please enter a valid ticker (e.g., AAPL, TSLA)."
+          : "Something went wrong. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -115,7 +139,6 @@ export default function Dashboard() {
           ratios,
         }
       );
-
       setAiSummary(response.data.summary);
     } catch (error) {
       console.error("Error fetching AI summary:", error);
@@ -142,6 +165,7 @@ export default function Dashboard() {
         📊 Stock Dashboard
       </h2>
 
+      {/* Search Bar */}
       <form onSubmit={handleSearch} className="mb-8 flex gap-2 items-center">
         <input
           type="text"
@@ -160,6 +184,7 @@ export default function Dashboard() {
         </button>
       </form>
 
+      {/* Watchlist */}
       <div className="mb-8">
         <h3 className="text-xl font-semibold text-[#0A2540] mb-2">
           ⭐ Watchlist
@@ -192,17 +217,7 @@ export default function Dashboard() {
         )}
       </div>
 
-      {watchlist.map((symbol) => (
-        <div key={symbol} className="mb-4">
-          <h3 className="text-lg font-semibold text-[#0A2540]">{symbol}</h3>
-          <button
-            onClick={() => fetchStockData(symbol)}
-            className="text-sm text-[#0057FF] hover:underline"
-          >
-            View Details
-          </button>
-        </div>
-      ))}
+      {/* Main Chart + News */}
       <div className="bg-white rounded-xl shadow-md border border-[#E6EBF2] p-4 min-h-[400px]">
         {loading ? (
           <ChartSkeleton />
@@ -228,12 +243,12 @@ export default function Dashboard() {
             </div>
 
             <DynamicStockChart data={stockData} />
-
             <NewsFeed symbol={stockSymbol} onHeadlinesUpdate={setHeadlines} />
 
+            {/* Add to watchlist button */}
             {stockSymbol && !watchlist.includes(stockSymbol) && (
               <button
-                onClick={() => setWatchlist((prev) => [...prev, stockSymbol])}
+                onClick={() => addToWatchlist(stockSymbol)}
                 className="mt-4 px-4 py-2 bg-[#00C4A3] text-white rounded-lg text-sm hover:bg-[#00A78A] transition"
               >
                 ➕ Add {stockSymbol} to Watchlist
@@ -247,6 +262,7 @@ export default function Dashboard() {
         )}
       </div>
 
+      {/* AI Summary */}
       {aiLoading ? (
         <div className="mt-12 text-sm text-gray-500 text-center">
           Generating AI insight...
