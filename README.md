@@ -31,7 +31,7 @@ Fyntra is a full-stack FinTech web app that empowers users to analyze stocks usi
 
 - **Node.js** + **Express**
 - **MongoDB Atlas** with **Mongoose**
-- **OpenAI GPT-4** (AI Summary)
+- **GroqAI** (AI Summary)
 - **FMP (Financial Modeling Prep)** API
 - **News API** (Marketaux or similar)
 
